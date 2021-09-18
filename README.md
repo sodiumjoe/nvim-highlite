@@ -6,7 +6,7 @@
 
 ## Introduction
 
-`nvim-highlite` is a colorscheme template repository with great defaults.
+`nvim-sodium` is a colorscheme template repository for Neovim 0.5+.
 
 This template's _defaults_ focus on:
 
@@ -28,16 +28,16 @@ This template's _design_ focuses on:
 
 ## Installation
 
-* Neovim 0.7+
+The only prerequisite is Neovim 0.7+
 
 ### Creating Your Own
 
 1. Fork this repository, or clone it with `git clone https://github.com/Iron-E/nvim-highlite`.
-2. Follow the instructions in [`colors/highlite.vim`](colors/highlite.vim).
+2. Follow the instructions in [`colors/sodium.vim`](colors/sodium.vim).
   * If you are on a Unix system, use the [setup script](setup.sh) like so:
   ```sh
   chmod +x ./setup.sh
-  ./setup.sh highlite <colorscheme>
+  ./setup.sh sodium <colorscheme>
   ```
   Where `<colorscheme>` is the name of your desired colorscheme.
   * If you are on Windows, rename the files manually.
@@ -69,8 +69,7 @@ require('lazy').setup {
       vim.api.nvim_command 'colorscheme highlite'
     end,
     lazy = false,
-    priority = 1000,
-    version = '^2.0',
+    priority = 1000
   },
 }
 ```
@@ -109,7 +108,7 @@ require('lazy').setup {
 
 ## Usage
 
-This repository in itself is an example of how to use `nvim-highlite`. Aside from this, the following colorschemes are built using `nvim-highlite`:
+This repository in itself is an example of how to use `nvim-sodium`. Aside from this, the following colorschemes are built using `nvim-highlite`:
 
 * [nord-lite](https://github.com/NarutoXY/nvim-highlite)
 * [nvim-deus](https://github.com/tandy1229/nvim-deus)
@@ -120,13 +119,13 @@ This repository in itself is an example of how to use `nvim-highlite`. Aside fro
 
 ### As Dependency
 
-Below is an example of how to use `nvim-highlite` as a dependency.
+Below is an example of how to use `nvim-sodium` as a dependency.
 
-* See `:h highlite-usage` for more.
+- See `:h sodium-usage` for more.
 
 ```lua
--- Import nvim-highlite
-local highlite = require('highlite')
+-- Import nvim-sodium
+local sodium = require('sodium')
 
 -- First, define some colors
 local red = {'#FF0000', 1, 'red'}
@@ -140,17 +139,18 @@ highlite.highlight('Identifier', {bg = red, fg = black, style = 'bold'})
 highlite.highlight('Function', {bg = black, fg = red, light = {bg = white}})
 
 -- Link 'Example' to 'Identifier'
-highlite.highlight('Example', 'Identifier')
+sodium.highlight('Example', 'Identifier')
 
 -- You can also reference specific attributes of another highlight group.
 highlite.highlight('AnotherExample', {bg = highlite.group'SpellBad'.bg, fg = white})
+sodium.highlight('AnotherExample', {bg=sodium.group'SpellBad'.bg, fg=white})
 ```
 
 ### As Template
 
-Below is an example of how to use `nvim-highlite` as a template.
+Below is an example of how to use `nvim-sodium` as a template.
 
-* See [`highlite.vim`](colors/highlite.vim) for more.
+- See [`sodium.vim`](colors/sodium.vim) for more.
 
 ```lua
 -- First, define some colors
@@ -180,7 +180,7 @@ local highlight_groups = {
 When using this plugin, it is important to know that you can't just run `:hi` on a highlight group and expect that its changes will be retained. You must attach them to the `ColorScheme` `autocmd` event, as shown below:
 
 ```vim
-packadd nvim-highlite
+packadd nvim-sodium
 set termguicolors "optional
 
 " WRONG! Don't do this.
@@ -188,14 +188,14 @@ hi! Error guifg=#000000 guibg=#FFFFFF
 
 " Do this instead.
 augroup Highlite
-  " You can also use `highlite.highlight()` instead of `:hi!`
-  autocmd ColorScheme highlite hi! Error guifg=#000000 guibg=#FFFFFF
+  " You can also use `sodium.highlight()` instead of `:hi!`
+  autocmd ColorScheme sodium hi! Error guifg=#000000 guibg=#FFFFFF
 augroup end
 
-colorscheme highlite
+colorscheme sodium
 ```
 
-Of course, substitute `highlite` with the name of your colorscheme.
+Of course, substitute `sodium` with the name of your colorscheme.
 
 > Why am I receiving `E5108: Error executing lua [string ":lua"]:1: module '<colorscheme>' not found`?
 

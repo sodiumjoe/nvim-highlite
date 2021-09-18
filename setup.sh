@@ -1,5 +1,4 @@
-#!/usr/bin/sh
-
+#!/bin/sh
 sed "s/$1/$2/g" "colors/$1.lua" > "colors/$2.lua"
 rm "colors/$1.lua"
 
