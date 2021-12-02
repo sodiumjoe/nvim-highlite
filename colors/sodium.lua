@@ -441,6 +441,22 @@ local highlight_groups = {
 	LspDiagnosticsUnderlineInfo = "DiagnosticUnderlineInfo",
 	LspDiagnosticsUnderlineWarning = "DiagnosticUnderlineWarn",
 
+	DiagnosticError = 'Error',
+	DiagnosticFloatingError = 'ErrorMsg',
+	DiagnosticSignError = 'DiagnosticFloatingError',
+
+	DiagnosticWarn = 'Warning',
+	DiagnosticFloatingWarn = 'WarningMsg',
+	DiagnosticSignWarn = 'DiagnosticFloatingWarn',
+
+	DiagnosticHint = 'Hint',
+	DiagnosticFloatingHint = 'HintMsg',
+	DiagnosticSignHint = 'DiagnosticFloatingHint',
+
+	DiagnosticInfo = 'Info',
+	DiagnosticFloatingInfo = 'InfoMsg',
+	DiagnosticSignInfo = 'DiagnosticFloatingInfo',
+
 	--[[ 4.2.12. Cursor ]]
 	-- Cursor   = {style='inverse'},
 	-- CursorIM = 'Cursor',
