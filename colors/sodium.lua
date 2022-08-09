@@ -371,7 +371,7 @@ local highlight_groups = {
 
 	--[[ 4.2.6. Diffs]]
 	DiffAdd = { fg = black, bg = green },
-	DiffChange = NONE,
+	DiffChange = {},
 	DiffDelete = function(self)
 		return { fg = self.DiffAdd.fg, bg = red }
 	end,
@@ -391,8 +391,8 @@ local highlight_groups = {
 	SpellRare = { style = { "undercurl", color = orange } },
 
 	--[[ 4.2.9. Conditional Column Highlighting]]
-	ColorColumn = { style = "inverse" },
-	SignColumn = NONE,
+	ColorColumn = { style = 'inverse' },
+	SignColumn = {},
 
 	--[[ 4.2.10. Messages]]
 	ErrorMsg = { fg = red },
@@ -564,27 +564,27 @@ local highlight_groups = {
 	dotType = "Type",
 
 	--[[ 4.3.7. Go ]]
-	goBlock = "Delimiter",
-	goBoolean = "Boolean",
-	goBuiltins = "Operator",
-	goField = "Identifier",
-	goFloat = "Float",
-	goFormatSpecifier = "Character",
-	goFunction = "Function",
-	goFunctionCall = "goFunction",
-	goFunctionReturn = NONE,
-	goMethodCall = "goFunctionCall",
-	goParamType = "goReceiverType",
-	goPointerOperator = "SpecialChar",
-	goPredefinedIdentifiers = "Constant",
-	goReceiver = "goBlock",
-	goReceiverType = "goTypeName",
-	goSimpleParams = "goBlock",
-	goType = "Type",
-	goTypeConstructor = "goFunction",
-	goTypeName = "Type",
-	goVarAssign = "Identifier",
-	goVarDefs = "goVarAssign",
+	goBlock = 'Delimiter',
+	goBoolean = 'Boolean',
+	goBuiltins = 'Operator',
+	goField = 'Identifier',
+	goFloat = 'Float',
+	goFormatSpecifier = 'Character',
+	goFunction = 'Function',
+	goFunctionCall = 'goFunction',
+	goFunctionReturn = {},
+	goMethodCall = 'goFunctionCall',
+	goParamType = 'goReceiverType',
+	goPointerOperator = 'SpecialChar',
+	goPredefinedIdentifiers = 'Constant',
+	goReceiver = 'goBlock',
+	goReceiverType = 'goTypeName',
+	goSimpleParams = 'goBlock',
+	goType = 'Type',
+	goTypeConstructor = 'goFunction',
+	goTypeName = 'Type',
+	goVarAssign = 'Identifier',
+	goVarDefs = 'goVarAssign',
 
 	--[[ 4.3.8. HTML ]]
 	htmlArg = "Label",
@@ -773,10 +773,10 @@ local highlight_groups = {
 	crontabMnth = "Structure",
 
 	--[[ 4.3.32. PlantUML ]]
-	plantumlArrowLR = "Statement",
-	plantumlColonLine = NONE,
-	plantumlMindmap = "Label",
-	plantumlMindmap2 = "Label",
+	plantumlArrowLR = 'Statement',
+	plantumlColonLine = {},
+	plantumlMindmap = 'Label',
+	plantumlMindmap2 = 'Label',
 
 	--[[ 4.3.33. YAML ]]
 	yamlInline = 'Delimiter',
