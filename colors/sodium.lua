@@ -358,7 +358,7 @@ local highlight_groups = {
 	VisualNOS = { bg = gray_darker },
 
 	--[[ 4.2.4. Popup Menu]]
-	Pmenu = { fg = FG, bg = gray_dark },
+	Pmenu = { fg = highlight_group_normal.fg, bg = gray_dark },
 	PmenuSbar = { bg = gray_darker },
 	PmenuSel = { fg = black, bg = gray_light },
 	PmenuThumb = { bg = white },
