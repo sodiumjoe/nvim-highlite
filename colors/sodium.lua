@@ -254,7 +254,7 @@ local highlight_groups = {
 
 	--[[ 4.1.1. Literals]]
 	Constant = { fg = constant },
-	String = { fg = "fg" },
+	String = { fg = highlight_group_normal.fg },
 	Character = { fg = trivial },
 	Number = { fg = statement },
 	Boolean = { fg = special },
@@ -546,7 +546,7 @@ local highlight_groups = {
 	scssElse = "scssIf",
 	scssMixinName = function(self)
 		local super = self.cssClassName
-		return { bg = super.bg, fg = super.fg, style = "Italic" }
+		return { bg = super.bg, fg = super.fg, style = 'italic' }
 	end,
 	scssIf = "PreCondit",
 	scssInclude = "Include",
