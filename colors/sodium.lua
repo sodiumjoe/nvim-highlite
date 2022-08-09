@@ -65,12 +65,12 @@ vim.g.colors_name = "sodium"
 
 ```lua
 	<color name> = { -- Give each color a distinctive name.
-		'#<hex color code>', -- Hexadecimal color used in GVim/MacVim or 'NONE'.
-		<16-bit color code>, -- Integer 0–255 used by terminals supporting 256 colors or 'NONE'.
+		'#<hex color code>', -- Hexadecimal color used in GVim/MacVim
+		<16-bit color code>, -- Integer 0–255 used by terminals supporting 256 colors
 		'<ANSI color name>'  -- color name used by less capable color terminals, can be 'darkred',
 		                       'red', 'darkgreen', 'green', 'darkyellow', 'yellow', 'darkblue',
 		                       'blue', 'darkmagenta', 'magenta', 'black', 'darkgrey', 'grey',
-		                       'white', or 'NONE'
+		                       'white'
 	}
 ```
 
@@ -133,10 +133,10 @@ local trivial = gray
 
 ```lua
 	<highlight group name> = {
-		-- The color for the background, `NONE`, `FG` or `BG`
+		-- The color for the background, or `nil`
 		bg = <color>,
 
-		-- The color for the foreground, `NONE`, `FG` or `BG`
+		-- The color for the foreground, or `nil`
 		fg = <color>
 
 		-- The |highlight-blend| value, if one is desired.
@@ -144,7 +144,7 @@ local trivial = gray
 
 		-- Style can be 'bold', 'italic', and more. See |attr-list| for more information.
 		-- It can also have a color, and/or multiple <cterm>s.
-		[, style = <cterm>|{<cterm> (, <cterm>) [color=<color>]} ]
+		[, style = <cterm>|{<cterm> (, <cterm>) [color = <color>]} ]
 	}
 ```
 
@@ -160,11 +160,11 @@ local trivial = gray
 
 ```lua
 	SpellBad = { -- ← name of the highlight group
-		bg=NONE, -- background color
-		fg=red, -- foureground color
-		style={ -- the style
+		bg = nil, -- background color
+		fg = red, -- foureground color
+		style = { -- the style
 			'undercurl', -- undercurl (squiggly line)
-			color=red -- the color of the undercurl
+			color = red -- the color of the undercurl
 		}
 	},
 	SpellWorse = 'SpellBad'
@@ -175,12 +175,12 @@ local trivial = gray
 
 ```lua
 	SpellBad = { -- ← name of the highlight group
-		bg=NONE, -- background color
-		fg=red, -- foureground color
-		style={ -- the style
+		bg = nil, -- background color
+		fg = red, -- foureground color
+		style = { -- the style
 			'undercurl', -- undercurl (squiggly line)
 			'standout'
-			color=red -- the color of the undercurl
+			color = red -- the color of the undercurl
 		}
 	}
 ```
@@ -192,10 +192,10 @@ local trivial = gray
 
 ```lua
 	SpellBad = {
-		bg=NONE,
-		dark={fg=white},
-		light={fg=black},
-		style={'undercurl', color=red}
+		bg = nil,
+		dark = {fg = white},
+		light = {fg = black},
+		style = {'undercurl', color = red}
 	}
 ```
 
@@ -218,9 +218,9 @@ local trivial = gray
 		inherited_style.color = red
 
 		return {
-			bg=NONE,
-			fg=NONE,
-			style=inherited_style
+			bg = nil,
+			fg = nil,
+			style = inherited_style
 		}
 	end
 ```
@@ -239,11 +239,6 @@ local trivial = gray
 	      automatically be defining the rest of the highlights, which is one of
 	      the benefits of using this template.
 ]]
-
---[[ DO NOT EDIT `BG` NOR `FG`. ]]
-local BG = "bg"
-local FG = "fg"
-local NONE = {}
 
 --[[ These are the ones you should edit. ]]
 -- This is the only highlight that must be defined separately.
@@ -334,11 +329,18 @@ local highlight_groups = {
 	end,
 
 	--[[ 4.2.2. Separators]]
+	FloatBorder = { fg = gray },
+	TabLine = function(self)
+		return { fg = highlight_group_normal.fg, bg = gray_darker }
+	end,
+	TabLineFill = function(self)
+		return { fg = self.TabLine.bg, bg = black }
+	end,
+	TabLineSel = function(self)
+		return { fg = self.TabLine.fg, bg = highlight_group_normal.bg }
+	end,
+	Title = { style = 'bold' },
 	VertSplit = { fg = white },
-	TabLine = { fg = FG, bg = gray_darker },
-	TabLineFill = { fg = gray_darker, bg = black },
-	TabLineSel = { fg = FG, bg = highlight_group_normal.bg },
-	Title = { style = "bold" },
 
 	--[[ 4.2.3. Conditional Line Highlighting]]
 	Conceal = "NonText",
@@ -349,8 +351,10 @@ local highlight_groups = {
 	debugBreakpoint = "ErrorMsg",
 	debugPC = "ColorColumn",
 	LineNr = { fg = gray },
-	QuickFixLine = { bg = gray_darker },
-	Visual = { style = "inverse" },
+	QuickFixLine = function(self)
+		return { bg = self.StatusLine.bg }
+	end,
+	Visual = { style = 'inverse' },
 	VisualNOS = { bg = gray_darker },
 
 	--[[ 4.2.4. Popup Menu]]
@@ -645,30 +649,34 @@ local highlight_groups = {
 	makeSpecTarget = "Type",
 
 	--[[ 4.3.13. Markdown ]]
-	markdownCode = "mkdCode",
-	markdownCodeDelimiter = "mkdCodeDelimiter",
-	markdownH1 = { fg = red, style = "bold" },
-	markdownH2 = { fg = orange, style = "bold" },
-	markdownH3 = { fg = yellow, style = "bold" },
-	markdownH4 = { fg = green_dark, style = "bold" },
-	markdownH5 = { fg = cyan, style = "bold" },
-	markdownH6 = { fg = purple_light, style = "bold" },
-	markdownLinkDelimiter = "Delimiter",
-	markdownLinkTextDelimiter = "markdownLinkDelimiter",
-	markdownUrl = "Underlined",
-	mkdBold = "Ignore",
-	mkdBoldItalic = "mkdBold",
-	mkdCode = "Keyword",
-	mkdCodeDelimiter = "mkdBold",
-	mkdCodeEnd = "mkdCodeStart",
-	mkdCodeStart = "mkdCodeDelimiter",
-	mkdHeading = "Delimiter",
-	mkdItalic = "mkdBold",
-	mkdLineBreak = "NonText",
-	mkdListItem = "Special",
+	markdownCode = 'mkdCode',
+	markdownCodeDelimiter = 'mkdCodeDelimiter',
+	markdownH1 = { fg = red, style = 'bold' },
+	markdownH2 = { fg = orange, style = 'bold' },
+	markdownH3 = { fg = yellow, style = 'bold' },
+	markdownH4 = { fg = green_dark, style = 'bold' },
+	markdownH5 = { fg = cyan, style = 'bold' },
+	markdownH6 = { fg = purple_light, style = 'bold' },
+	markdownLinkDelimiter = 'mkdDelimiter',
+	markdownLinkText = 'mkdLink',
+	markdownLinkTextDelimiter = 'markdownLinkDelimiter',
+	markdownUrl = 'mkdURL',
+	mkdBold = 'Ignore',
+	mkdBoldItalic = 'mkdBold',
+	mkdCode = 'Keyword',
+	mkdCodeDelimiter = 'mkdBold',
+	mkdCodeEnd = 'mkdCodeStart',
+	mkdCodeStart = 'mkdCodeDelimiter',
+	mkdDelimiter = 'Delimiter',
+	mkdHeading = 'Delimiter',
+	mkdItalic = 'mkdBold',
+	mkdLineBreak = 'NonText',
+	mkdLink = 'Underlined',
+	mkdListItem = 'Special',
 	mkdRule = function(self)
 		return { fg = self.Ignore.fg, style = { "underline", color = self.Delimiter.fg } }
 	end,
+	mkdURL = 'htmlString',
 
 	--[[ 4.3.20. Python ]]
 	pythonBrackets = "Delimiter",
@@ -771,7 +779,8 @@ local highlight_groups = {
 	plantumlMindmap2 = "Label",
 
 	--[[ 4.3.33. YAML ]]
-	yamlKey = "Label",
+	yamlInline = 'Delimiter',
+	yamlKey = 'Label',
 
 	--[[ 4.3.34. Git ]]
 	diffAdded = "DiffAdd",
@@ -839,24 +848,37 @@ local highlight_groups = {
 	manReference = "Tag",
 	manUnderline = "Label",
 
+	--[[ 4.3.39 Rust ]]
+	rustAssert = 'Debug',
+	rustCharacterDelimiter = 'rustNoise',
+	rustIdentifier = 'Identifier',
+	rustStaticLifetime = 'rustStorage',
+	rustStringDelimiter = 'rustNoise',
+
+	--[[ 4.3.40 XXD ]]
+	xxdAddress = 'Label',
+	xxdAscii = 'Character',
+	xxdDot = 'Ignore',
+	xxdSep = 'Delimiter',
+
 	--[[ 4.4. Plugins
 		Everything in this section is OPTIONAL. Feel free to remove everything
 		here if you don't want to define it, or add more if there's something
 		missing.
 	]]
 	--[[ 4.4.1. ALE ]]
-	ALEErrorSign = "DiagnosticSignError",
-	ALEWarningSign = "DiagnosticSignWarn",
+	ALEErrorSign = 'DiagnosticSignError',
+	ALEWarningSign = 'DiagnosticSignWarn',
 
 	--[[ 4.4.2. coc.nvim ]]
-	CocErrorHighlight = "DiagnosticUnderlineError",
-	CocErrorSign = "DiagnosticSignError",
-	CocHintHighlight = "DiagnosticUnderlineHint  ",
-	CocHintSign = "DiagnosticSignHint",
-	CocInfoHighlight = "DiagnosticUnderlineInfo",
-	CocInfoSign = "DiagnosticSignInfo",
-	CocWarningHighlight = "DiagnosticUnderlineWarn",
-	CocWarningSign = "DiagnosticSignWarn",
+	CocErrorHighlight = 'DiagnosticUnderlineError',
+	CocErrorSign = 'DiagnosticSignError',
+	CocHintHighlight = 'DiagnosticUnderlineHint',
+	CocHintSign = 'DiagnosticSignHint',
+	CocInfoHighlight = 'DiagnosticUnderlineInfo',
+	CocInfoSign = 'DiagnosticSignInfo',
+	CocWarningHighlight = 'DiagnosticUnderlineWarn',
+	CocWarningSign = 'DiagnosticSignWarn',
 
 	--[[ 4.4.2. vim-jumpmotion / vim-easymotion ]]
 	EasyMotion = "IncSearch",
@@ -877,6 +899,10 @@ local highlight_groups = {
 	GitSignsChange = "GitGutterChange",
 	GitSignsDelete = "GitGutterDelete",
 
+	GitSignsAdd = 'GitGutterAdd',
+	GitSignsChange = 'GitGutterChange',
+	GitSignsDelete = 'GitGutterDelete',
+
 	--[[ 4.4.5. vim-indent-guides ]]
 	IndentGuidesOdd = { bg = gray_darker },
 	IndentGuidesEven = { bg = gray },
@@ -892,14 +918,14 @@ local highlight_groups = {
 	NERDTreeLinkTarget = "Tag",
 
 	--[[ 4.4.8. nvim-treesitter ]]
-	TSConstBuiltin = "Constant",
-	TSConstructor = "Typedef",
-	TSFuncBuiltin = "Function",
-	TSStringEscape = "Character",
-	TSStringRegex = "SpecialChar",
-	TSURI = "Tag",
-	TSVariableBuiltin = "Identifier",
-	TSVariable = "Identifier",
+	TSConstBuiltin = 'TSConstant',
+	TSConstructor = 'TSFunction',
+	TSDanger = 'ErrorMsg',
+	TSFuncBuiltin = 'TSFunction',
+	TSTag = 'Tag',
+	TSWarning = 'WarningMsg',
+	TSVariableBuiltin = 'Identifier',
+	TSVariable = 'Identifier',
 
 	--[[ 4.4.9. barbar.nvim ]]
 	BufferCurrent = "TabLineSel",
@@ -918,15 +944,17 @@ local highlight_groups = {
 	BufferInactiveSign = "BufferVisibleSign",
 	BufferInactiveTarget = "BufferVisibleTarget",
 
-	BufferTabpages = { fg = highlight_group_normal.bg, bg = FG, style = "bold" },
-	BufferTabpageFill = "TabLineFill",
+	BufferTabpages = { style = 'bold' },
+	BufferTabpageFill = 'TabLineFill',
 
 	BufferVisible = "TabLine",
 	BufferVisibleIndex = function(self)
 		return { fg = self.InfoMsg.fg, bg = self.BufferVisible.bg }
 	end,
-	BufferVisibleMod = { fg = white, bg = gray_darker, style = "italic" },
-	BufferVisibleSign = "BufferVisible",
+	BufferVisibleMod = function(self)
+		return { fg = white, bg = self.BufferVisible.bg, style = 'italic' }
+	end,
+	BufferVisibleSign = 'BufferVisible',
 	BufferVisibleTarget = function(self)
 		local super = self.BufferVisibleMod
 		return { fg = super.fg, bg = super.bg, style = "bold" }
@@ -988,45 +1016,74 @@ local highlight_groups = {
 		return { fg = black, bg = self.Warning.bg, style = { "bold", "italic", "nocombine" } }
 	end,
 
-	TodoSignFIX = "TodoFgFIX",
-	TodoSignHACK = "TodoFgHACK",
-	TodoSignNOTE = "TodoFgNOTE",
-	TodoSignPERF = "TodoFgPERF",
-	TodoSignTODO = "TodoFgTODO",
-	TodoSignWARN = "TodoFgWARN",
+	TodoSignFIX = 'TodoFgFIX',
+	TodoSignHACK = 'TodoFgHACK',
+	TodoSignNOTE = 'TodoFgNOTE',
+	TodoSignPERF = 'TodoFgPERF',
+	TodoSignTODO = 'TodoFgTODO',
+	TodoSignWARN = 'TodoFgWARN',
 
 	--[[ 4.4.16. nvim-cmp ]]
-	CmpDocumentationBorder = "FloatBorder",
-	CmpItemAbbrDefault = "Comment",
-	CmpItemAbbrMatchDefault = { fg = highlight_group_normal.fg, style = { "bold", "nocombine" } },
-	CmpItemAbbrMatchFuzzyDefault = { fg = highlight_group_normal.fg, style = "nocombine" },
-	CmpItemKindDefault = "Type",
-	CmpItemMenuDefault = "NormalFloat",
+	CmpItemAbbrDefault = 'Ignore',
+	CmpItemAbbrMatchDefault = 'Underlined',
+	CmpItemAbbrMatchFuzzyDefault = { fg = highlight_group_normal.fg, style = { 'nocombine', 'underline' } },
+	CmpItemKindClassDefault = 'CmpItemKindStructDefault',
+	CmpItemKindColorDefault = 'Label',
+	CmpItemKindConstantDefault = 'Constant',
+	CmpItemKindConstructorDefault = 'CmpItemKindMethodDefault',
+	CmpItemKindDefault = 'Type',
+	CmpItemKindEnumDefault = 'CmpItemKindStructDefault',
+	CmpItemKindEnumMemberDefault = 'CmpItemKindConstantDefault',
+	CmpItemKindEventDefault = 'Repeat',
+	CmpItemKindFieldDefault = 'Identifier',
+	CmpItemKindFileDefault = 'Directory',
+	CmpItemKindFolderDefault = 'CmpItemKindFileDefault',
+	CmpItemKindFunctionDefault = 'Function',
+	CmpItemKindInterfaceDefault = 'Type',
+	CmpItemKindKeywordDefault = 'Keyword',
+	CmpItemKindMethodDefault = 'CmpItemKindFunctionDefault',
+	CmpItemKindModuleDefault = 'Include',
+	CmpItemKindOperatorDefault = 'Operator',
+	CmpItemKindPropertyDefault = 'CmpItemKindFieldDefault',
+	CmpItemKindReferenceDefault = 'StorageClass',
+	CmpItemKindSnippetDefault = 'Special',
+	CmpItemKindStructDefault = 'Structure',
+	CmpItemKindTextDefault = 'String',
+	CmpItemKindTypeParameterDefault = 'Typedef',
+	CmpItemKindUnitDefault = 'CmpItemKindStructDefault',
+	CmpItemKindValueDefault = 'CmpItemKindConstantDefault',
+	CmpItemKindVariableDefault = 'Identifier',
 
 	--[[ 4.4.17. packer.nvim ]]
-	packerFail = "ErrorMsg",
-	packerHash = "Number",
-	packerPackageNotLoaded = "Ignore",
-	packerStatusFail = "Statement",
-	packerStatusSuccess = "packerStatusFail",
+	packerFail = 'ErrorMsg',
+	packerHash = 'Number',
+	packerPackageNotLoaded = 'Ignore',
+	packerStatusFail = 'Statement',
+	packerStatusSuccess = 'packerStatusFail',
 	packerSuccess = function(self)
 		return { fg = green, style = self.packerFail.style }
 	end,
 
 	--[[ 4.4.18. nvim-tree ]]
 	NvimTreeGitDeleted = function(self)
-		return { fg = self.DiffDelete.bg, bg = NONE }
+		return { fg = self.DiffDelete.bg }
 	end,
-	NvimTreeGitDirty = { fg = orange, bg = NONE },
-	NvimTreeGitIgnored = "Ignore",
-	NvimTreeGitMerge = "NvimTreeGitRenamed",
+	NvimTreeGitDirty = { fg = orange },
+	NvimTreeGitIgnored = 'Ignore',
+	NvimTreeGitMerge = 'NvimTreeGitRenamed',
 	NvimTreeGitNew = function(self)
-		return { fg = self.DiffAdd.bg, bg = NONE }
+		return { fg = self.DiffAdd.bg }
 	end,
 	NvimTreeGitRenamed = function(self)
-		return { fg = self.DiffChange.bg, bg = NONE }
+		return { fg = self.DiffChange.bg }
 	end,
-	NvimTreeGitStaged = { fg = cyan, bg = NONE },
+	NvimTreeGitStaged = { fg = cyan },
+
+	--[[ 4.4.19. symbols-outline.nvim ]]
+	FocusedSymbol = {},
+
+	--[[ 4.4.20. mini.nvim ]]
+	MiniJump = 'MiniJump2dSpot',
 
 	--[[ CUSTOM ]]
 	ExtraWhitespace = "Error",

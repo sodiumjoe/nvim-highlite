@@ -42,6 +42,10 @@ local function get(color, index) -- {{{ †
 	end
 end --}}} ‡
 
+--- @param rgb string some string of RGB colors.
+--- @return string hex
+local function tohex(rgb) return string.format('#%06x', rgb) end
+
 --- Create a metatable which prioritizes entries in the `&bg` index of `definition`
 --- @param definition Highlite.Definition the definition of the highlight group
 --- @return table
@@ -55,44 +59,31 @@ end
 --- @class Highlite
 local highlite = {}
 
-highlite.group = vim.api.nvim_get_hl and
-	--- @param name string the name of the highlight group
-	--- @param link boolean if `true`, return highlight links instead of the true definition
-	--- @return Highlite.Definition # an nvim-highlite compliant table describing the highlight group `name`
-	function(name, link)
-		link = link or false
+--- @param name string the name of the highlight group
+--- @return Highlite.Definition definition an nvim-highlite compliant table describing the highlight group `name`
+function highlite.group(name)
+	local no_errors, definition = pcall(vim.api.nvim_get_hl_by_name, name, vim.go.termguicolors)
 
-		local definition = vim.api.nvim_get_hl(0, {link = link, name = name})
+	if not no_errors then definition = {} end
 
-		if not link then
-			for gui, cterm in pairs {bg = 'ctermbg', fg = 'ctermfg', sp = vim.NIL} do
-				definition[gui] = {[_PALETTE_CTERM] = definition[cterm], [_PALETTE_HEX] = definition[gui]}
-				definition[cterm] = nil
-			end
+	-- the style of the highlight group
+	local style = {}
+	for k, v in pairs(definition) do
+		if k == 'special' then
+			style.color = tohex(v)
+		elseif k ~= 'background' and k ~= 'blend' and k ~= 'foreground' then
+			style[#style+1] = k
 		end
-
-		return definition
-	end or
-	--- @param name string the name of the highlight group
-	--- @return Highlite.Definition definition an nvim-highlite compliant table describing the highlight group `name`
-	function(name)
-		local ok, definition = pcall(vim.api.nvim_get_hl_by_name, name, true)
-		local _, cterm = pcall(vim.api.nvim_get_hl_by_name, name, false)
-
-		if not ok then
-			return {}
-		end
-
-		for input, output in pairs {background = 'bg', foreground = 'fg', special = 'sp'} do
-			local definition_input = definition[input]
-			if definition_input then
-				definition[output] = {[_PALETTE_CTERM] = cterm[input], [_PALETTE_HEX] = definition_input}
-				definition[input] = nil
-			end
-		end
-
-		return definition
 	end
+
+	return
+	{
+		fg = definition.foreground and tohex(definition.foreground),
+		bg = definition.background and tohex(definition.background),
+		blend = definition.blend,
+		style = style,
+	}
+end
 
 -- Generate a `:highlight` command from a group and some definition.
 
@@ -154,29 +145,26 @@ return setmetatable(highlite, {__call = function(self, normal, highlights, termi
 		local original_value_type = type(original_value)
 
 		if original_value_type == 'function' then -- call and cache the result; next time, if it isn't a function this step will be skipped
-			local resolved = original_value(setmetatable({}, {__index = function(_, inner_key)
-				return resolve(tbl, inner_key, true)
-			end}))
-
-			tbl[key] = resolved
-			return resolved
-		elseif resolve_links and original_value_type == _TYPE_STRING then
+			tbl[key] = original_value(setmetatable({},
+			{
+				__index = function(_, inner_key) return resolve(tbl, inner_key, true) end
+			}))
+		elseif resolve_links and original_value_type == _TYPE_STRING and not string.find(original_value, '^#') then
 			return resolve(tbl, original_value, resolve_links)
-		else
-			return original_value
 		end
+
+		return tbl[key]
 	end
 
-	do
-		-- save the colors_name before syntax reset
-		local color_name = vim.g.colors_name
+	-- save the colors_name before syntax reset
+	local color_name = vim.g.colors_name
 
-		-- If the syntax has been enabled, reset it.
-		if vim.fn.exists 'syntax_on' then vim.api.nvim_command 'syntax reset' end
+	-- If the syntax has been enabled, reset it.
+	if vim.fn.exists 'syntax_on' then vim.api.nvim_command 'syntax reset' end
 
-		-- replace the colors_name
-		vim.g.colors_name = color_name
-	end
+	-- replace the colors_name
+	vim.g.colors_name = color_name
+	color_name = nil
 
 	-- If we aren't using hex nor 256 colorsets.
 	if not (vim.go.termguicolors or _USE_256) then vim.go.t_Co = '16' end
