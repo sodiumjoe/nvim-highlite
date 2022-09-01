@@ -291,7 +291,7 @@ local highlight_groups = {
 	Special = { fg = special },
 	SpecialChar = { fg = red, style = "italic" },
 	SpecialKey = "Character",
-	Tag = "Underlined",
+	Tag = "Label",
 	Delimiter = { fg = special },
 	SpecialComment = { fg = gray, style = { "bold", "nocombine" } },
 	Debug = "WarningMsg",
@@ -898,10 +898,6 @@ local highlight_groups = {
 	GitSignsAdd = "GitGutterAdd",
 	GitSignsChange = "GitGutterChange",
 	GitSignsDelete = "GitGutterDelete",
-
-	GitSignsAdd = 'GitGutterAdd',
-	GitSignsChange = 'GitGutterChange',
-	GitSignsDelete = 'GitGutterDelete',
 
 	--[[ 4.4.5. vim-indent-guides ]]
 	IndentGuidesOdd = { bg = gray_darker },
