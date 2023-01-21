@@ -339,22 +339,22 @@ local highlight_groups = {
 	TabLineSel = function(self)
 		return { fg = self.TabLine.fg, bg = highlight_group_normal.bg }
 	end,
-	Title = { style = 'bold' },
+	Title = { style = "bold" },
 	VertSplit = { fg = white },
 
 	--[[ 4.2.3. Conditional Line Highlighting]]
 	Conceal = "NonText",
-	CursorLine = { bg = gray_dark },
+	CursorLine = {},
 	CursorLineNr = function(self)
 		return { fg = pink, bg = self.LineNr.bg }
 	end,
 	debugBreakpoint = "ErrorMsg",
 	debugPC = "ColorColumn",
-	LineNr = { fg = gray },
+	LineNr = { fg = gray_darker },
 	QuickFixLine = function(self)
 		return { bg = self.StatusLine.bg }
 	end,
-	Visual = { style = 'inverse' },
+	Visual = { style = "inverse" },
 	VisualNOS = { bg = gray_darker },
 
 	--[[ 4.2.4. Popup Menu]]
@@ -391,7 +391,7 @@ local highlight_groups = {
 	SpellRare = { style = { "undercurl", color = orange } },
 
 	--[[ 4.2.9. Conditional Column Highlighting]]
-	ColorColumn = { style = 'inverse' },
+	ColorColumn = { style = "inverse" },
 	SignColumn = {},
 
 	--[[ 4.2.10. Messages]]
@@ -445,21 +445,21 @@ local highlight_groups = {
 	LspDiagnosticsUnderlineInfo = "DiagnosticUnderlineInfo",
 	LspDiagnosticsUnderlineWarning = "DiagnosticUnderlineWarn",
 
-	DiagnosticError = 'Error',
-	DiagnosticFloatingError = 'ErrorMsg',
-	DiagnosticSignError = 'DiagnosticFloatingError',
+	DiagnosticError = "Error",
+	DiagnosticFloatingError = "ErrorMsg",
+	DiagnosticSignError = "DiagnosticFloatingError",
 
-	DiagnosticWarn = 'Warning',
-	DiagnosticFloatingWarn = 'WarningMsg',
-	DiagnosticSignWarn = 'DiagnosticFloatingWarn',
+	DiagnosticWarn = "Warning",
+	DiagnosticFloatingWarn = "WarningMsg",
+	DiagnosticSignWarn = "DiagnosticFloatingWarn",
 
-	DiagnosticHint = 'Hint',
-	DiagnosticFloatingHint = 'HintMsg',
-	DiagnosticSignHint = 'DiagnosticFloatingHint',
+	DiagnosticHint = "Hint",
+	DiagnosticFloatingHint = "HintMsg",
+	DiagnosticSignHint = "DiagnosticFloatingHint",
 
-	DiagnosticInfo = 'Info',
-	DiagnosticFloatingInfo = 'InfoMsg',
-	DiagnosticSignInfo = 'DiagnosticFloatingInfo',
+	DiagnosticInfo = "Info",
+	DiagnosticFloatingInfo = "InfoMsg",
+	DiagnosticSignInfo = "DiagnosticFloatingInfo",
 
 	--[[ 4.2.12. Cursor ]]
 	-- Cursor   = {style='inverse'},
@@ -546,7 +546,7 @@ local highlight_groups = {
 	scssElse = "scssIf",
 	scssMixinName = function(self)
 		local super = self.cssClassName
-		return { bg = super.bg, fg = super.fg, style = 'italic' }
+		return { bg = super.bg, fg = super.fg, style = "italic" }
 	end,
 	scssIf = "PreCondit",
 	scssInclude = "Include",
@@ -564,27 +564,27 @@ local highlight_groups = {
 	dotType = "Type",
 
 	--[[ 4.3.7. Go ]]
-	goBlock = 'Delimiter',
-	goBoolean = 'Boolean',
-	goBuiltins = 'Operator',
-	goField = 'Identifier',
-	goFloat = 'Float',
-	goFormatSpecifier = 'Character',
-	goFunction = 'Function',
-	goFunctionCall = 'goFunction',
+	goBlock = "Delimiter",
+	goBoolean = "Boolean",
+	goBuiltins = "Operator",
+	goField = "Identifier",
+	goFloat = "Float",
+	goFormatSpecifier = "Character",
+	goFunction = "Function",
+	goFunctionCall = "goFunction",
 	goFunctionReturn = {},
-	goMethodCall = 'goFunctionCall',
-	goParamType = 'goReceiverType',
-	goPointerOperator = 'SpecialChar',
-	goPredefinedIdentifiers = 'Constant',
-	goReceiver = 'goBlock',
-	goReceiverType = 'goTypeName',
-	goSimpleParams = 'goBlock',
-	goType = 'Type',
-	goTypeConstructor = 'goFunction',
-	goTypeName = 'Type',
-	goVarAssign = 'Identifier',
-	goVarDefs = 'goVarAssign',
+	goMethodCall = "goFunctionCall",
+	goParamType = "goReceiverType",
+	goPointerOperator = "SpecialChar",
+	goPredefinedIdentifiers = "Constant",
+	goReceiver = "goBlock",
+	goReceiverType = "goTypeName",
+	goSimpleParams = "goBlock",
+	goType = "Type",
+	goTypeConstructor = "goFunction",
+	goTypeName = "Type",
+	goVarAssign = "Identifier",
+	goVarDefs = "goVarAssign",
 
 	--[[ 4.3.8. HTML ]]
 	htmlArg = "Label",
@@ -649,34 +649,34 @@ local highlight_groups = {
 	makeSpecTarget = "Type",
 
 	--[[ 4.3.13. Markdown ]]
-	markdownCode = 'mkdCode',
-	markdownCodeDelimiter = 'mkdCodeDelimiter',
-	markdownH1 = { fg = red, style = 'bold' },
-	markdownH2 = { fg = orange, style = 'bold' },
-	markdownH3 = { fg = yellow, style = 'bold' },
-	markdownH4 = { fg = green_dark, style = 'bold' },
-	markdownH5 = { fg = cyan, style = 'bold' },
-	markdownH6 = { fg = purple_light, style = 'bold' },
-	markdownLinkDelimiter = 'mkdDelimiter',
-	markdownLinkText = 'mkdLink',
-	markdownLinkTextDelimiter = 'markdownLinkDelimiter',
-	markdownUrl = 'mkdURL',
-	mkdBold = 'Ignore',
-	mkdBoldItalic = 'mkdBold',
-	mkdCode = 'Keyword',
-	mkdCodeDelimiter = 'mkdBold',
-	mkdCodeEnd = 'mkdCodeStart',
-	mkdCodeStart = 'mkdCodeDelimiter',
-	mkdDelimiter = 'Delimiter',
-	mkdHeading = 'Delimiter',
-	mkdItalic = 'mkdBold',
-	mkdLineBreak = 'NonText',
-	mkdLink = 'Underlined',
-	mkdListItem = 'Special',
+	markdownCode = "mkdCode",
+	markdownCodeDelimiter = "mkdCodeDelimiter",
+	markdownH1 = { fg = red, style = "bold" },
+	markdownH2 = { fg = orange, style = "bold" },
+	markdownH3 = { fg = yellow, style = "bold" },
+	markdownH4 = { fg = green_dark, style = "bold" },
+	markdownH5 = { fg = cyan, style = "bold" },
+	markdownH6 = { fg = purple_light, style = "bold" },
+	markdownLinkDelimiter = "mkdDelimiter",
+	markdownLinkText = "mkdLink",
+	markdownLinkTextDelimiter = "markdownLinkDelimiter",
+	markdownUrl = "mkdURL",
+	mkdBold = "Ignore",
+	mkdBoldItalic = "mkdBold",
+	mkdCode = "Keyword",
+	mkdCodeDelimiter = "mkdBold",
+	mkdCodeEnd = "mkdCodeStart",
+	mkdCodeStart = "mkdCodeDelimiter",
+	mkdDelimiter = "Delimiter",
+	mkdHeading = "Delimiter",
+	mkdItalic = "mkdBold",
+	mkdLineBreak = "NonText",
+	mkdLink = "Underlined",
+	mkdListItem = "Special",
 	mkdRule = function(self)
 		return { fg = self.Ignore.fg, style = { "underline", color = self.Delimiter.fg } }
 	end,
-	mkdURL = 'htmlString',
+	mkdURL = "htmlString",
 
 	--[[ 4.3.20. Python ]]
 	pythonBrackets = "Delimiter",
@@ -773,14 +773,14 @@ local highlight_groups = {
 	crontabMnth = "Structure",
 
 	--[[ 4.3.32. PlantUML ]]
-	plantumlArrowLR = 'Statement',
+	plantumlArrowLR = "Statement",
 	plantumlColonLine = {},
-	plantumlMindmap = 'Label',
-	plantumlMindmap2 = 'Label',
+	plantumlMindmap = "Label",
+	plantumlMindmap2 = "Label",
 
 	--[[ 4.3.33. YAML ]]
-	yamlInline = 'Delimiter',
-	yamlKey = 'Label',
+	yamlInline = "Delimiter",
+	yamlKey = "Label",
 
 	--[[ 4.3.34. Git ]]
 	diffAdded = "DiffAdd",
@@ -849,17 +849,17 @@ local highlight_groups = {
 	manUnderline = "Label",
 
 	--[[ 4.3.39 Rust ]]
-	rustAssert = 'Debug',
-	rustCharacterDelimiter = 'rustNoise',
-	rustIdentifier = 'Identifier',
-	rustStaticLifetime = 'rustStorage',
-	rustStringDelimiter = 'rustNoise',
+	rustAssert = "Debug",
+	rustCharacterDelimiter = "rustNoise",
+	rustIdentifier = "Identifier",
+	rustStaticLifetime = "rustStorage",
+	rustStringDelimiter = "rustNoise",
 
 	--[[ 4.3.40 XXD ]]
-	xxdAddress = 'Label',
-	xxdAscii = 'Character',
-	xxdDot = 'Ignore',
-	xxdSep = 'Delimiter',
+	xxdAddress = "Label",
+	xxdAscii = "Character",
+	xxdDot = "Ignore",
+	xxdSep = "Delimiter",
 
 	--[[ 4.4. Plugins
 		Everything in this section is OPTIONAL. Feel free to remove everything
@@ -867,18 +867,18 @@ local highlight_groups = {
 		missing.
 	]]
 	--[[ 4.4.1. ALE ]]
-	ALEErrorSign = 'DiagnosticSignError',
-	ALEWarningSign = 'DiagnosticSignWarn',
+	ALEErrorSign = "DiagnosticSignError",
+	ALEWarningSign = "DiagnosticSignWarn",
 
 	--[[ 4.4.2. coc.nvim ]]
-	CocErrorHighlight = 'DiagnosticUnderlineError',
-	CocErrorSign = 'DiagnosticSignError',
-	CocHintHighlight = 'DiagnosticUnderlineHint',
-	CocHintSign = 'DiagnosticSignHint',
-	CocInfoHighlight = 'DiagnosticUnderlineInfo',
-	CocInfoSign = 'DiagnosticSignInfo',
-	CocWarningHighlight = 'DiagnosticUnderlineWarn',
-	CocWarningSign = 'DiagnosticSignWarn',
+	CocErrorHighlight = "DiagnosticUnderlineError",
+	CocErrorSign = "DiagnosticSignError",
+	CocHintHighlight = "DiagnosticUnderlineHint",
+	CocHintSign = "DiagnosticSignHint",
+	CocInfoHighlight = "DiagnosticUnderlineInfo",
+	CocInfoSign = "DiagnosticSignInfo",
+	CocWarningHighlight = "DiagnosticUnderlineWarn",
+	CocWarningSign = "DiagnosticSignWarn",
 
 	--[[ 4.4.2. vim-jumpmotion / vim-easymotion ]]
 	EasyMotion = "IncSearch",
@@ -914,14 +914,14 @@ local highlight_groups = {
 	NERDTreeLinkTarget = "Tag",
 
 	--[[ 4.4.8. nvim-treesitter ]]
-	TSConstBuiltin = 'TSConstant',
-	TSConstructor = 'TSFunction',
-	TSDanger = 'ErrorMsg',
-	TSFuncBuiltin = 'TSFunction',
-	TSTag = 'Tag',
-	TSWarning = 'WarningMsg',
-	TSVariableBuiltin = 'Identifier',
-	TSVariable = 'Identifier',
+	TSConstBuiltin = "TSConstant",
+	TSConstructor = "TSFunction",
+	TSDanger = "ErrorMsg",
+	TSFuncBuiltin = "TSFunction",
+	TSTag = "Tag",
+	TSWarning = "WarningMsg",
+	TSVariableBuiltin = "Identifier",
+	TSVariable = "Identifier",
 
 	--[[ 4.4.9. barbar.nvim ]]
 	BufferCurrent = "TabLineSel",
@@ -940,17 +940,17 @@ local highlight_groups = {
 	BufferInactiveSign = "BufferVisibleSign",
 	BufferInactiveTarget = "BufferVisibleTarget",
 
-	BufferTabpages = { style = 'bold' },
-	BufferTabpageFill = 'TabLineFill',
+	BufferTabpages = { style = "bold" },
+	BufferTabpageFill = "TabLineFill",
 
 	BufferVisible = "TabLine",
 	BufferVisibleIndex = function(self)
 		return { fg = self.InfoMsg.fg, bg = self.BufferVisible.bg }
 	end,
 	BufferVisibleMod = function(self)
-		return { fg = white, bg = self.BufferVisible.bg, style = 'italic' }
+		return { fg = white, bg = self.BufferVisible.bg, style = "italic" }
 	end,
-	BufferVisibleSign = 'BufferVisible',
+	BufferVisibleSign = "BufferVisible",
 	BufferVisibleTarget = function(self)
 		local super = self.BufferVisibleMod
 		return { fg = super.fg, bg = super.bg, style = "bold" }
@@ -1012,50 +1012,50 @@ local highlight_groups = {
 		return { fg = black, bg = self.Warning.bg, style = { "bold", "italic", "nocombine" } }
 	end,
 
-	TodoSignFIX = 'TodoFgFIX',
-	TodoSignHACK = 'TodoFgHACK',
-	TodoSignNOTE = 'TodoFgNOTE',
-	TodoSignPERF = 'TodoFgPERF',
-	TodoSignTODO = 'TodoFgTODO',
-	TodoSignWARN = 'TodoFgWARN',
+	TodoSignFIX = "TodoFgFIX",
+	TodoSignHACK = "TodoFgHACK",
+	TodoSignNOTE = "TodoFgNOTE",
+	TodoSignPERF = "TodoFgPERF",
+	TodoSignTODO = "TodoFgTODO",
+	TodoSignWARN = "TodoFgWARN",
 
 	--[[ 4.4.16. nvim-cmp ]]
-	CmpItemAbbrDefault = 'Ignore',
-	CmpItemAbbrMatchDefault = 'Underlined',
-	CmpItemAbbrMatchFuzzyDefault = { fg = highlight_group_normal.fg, style = { 'nocombine', 'underline' } },
-	CmpItemKindClassDefault = 'CmpItemKindStructDefault',
-	CmpItemKindColorDefault = 'Label',
-	CmpItemKindConstantDefault = 'Constant',
-	CmpItemKindConstructorDefault = 'CmpItemKindMethodDefault',
-	CmpItemKindDefault = 'Type',
-	CmpItemKindEnumDefault = 'CmpItemKindStructDefault',
-	CmpItemKindEnumMemberDefault = 'CmpItemKindConstantDefault',
-	CmpItemKindEventDefault = 'Repeat',
-	CmpItemKindFieldDefault = 'Identifier',
-	CmpItemKindFileDefault = 'Directory',
-	CmpItemKindFolderDefault = 'CmpItemKindFileDefault',
-	CmpItemKindFunctionDefault = 'Function',
-	CmpItemKindInterfaceDefault = 'Type',
-	CmpItemKindKeywordDefault = 'Keyword',
-	CmpItemKindMethodDefault = 'CmpItemKindFunctionDefault',
-	CmpItemKindModuleDefault = 'Include',
-	CmpItemKindOperatorDefault = 'Operator',
-	CmpItemKindPropertyDefault = 'CmpItemKindFieldDefault',
-	CmpItemKindReferenceDefault = 'StorageClass',
-	CmpItemKindSnippetDefault = 'Special',
-	CmpItemKindStructDefault = 'Structure',
-	CmpItemKindTextDefault = 'String',
-	CmpItemKindTypeParameterDefault = 'Typedef',
-	CmpItemKindUnitDefault = 'CmpItemKindStructDefault',
-	CmpItemKindValueDefault = 'CmpItemKindConstantDefault',
-	CmpItemKindVariableDefault = 'Identifier',
+	CmpItemAbbrDefault = "Ignore",
+	CmpItemAbbrMatchDefault = "Underlined",
+	CmpItemAbbrMatchFuzzyDefault = { fg = highlight_group_normal.fg, style = { "nocombine", "underline" } },
+	CmpItemKindClassDefault = "CmpItemKindStructDefault",
+	CmpItemKindColorDefault = "Label",
+	CmpItemKindConstantDefault = "Constant",
+	CmpItemKindConstructorDefault = "CmpItemKindMethodDefault",
+	CmpItemKindDefault = "Type",
+	CmpItemKindEnumDefault = "CmpItemKindStructDefault",
+	CmpItemKindEnumMemberDefault = "CmpItemKindConstantDefault",
+	CmpItemKindEventDefault = "Repeat",
+	CmpItemKindFieldDefault = "Identifier",
+	CmpItemKindFileDefault = "Directory",
+	CmpItemKindFolderDefault = "CmpItemKindFileDefault",
+	CmpItemKindFunctionDefault = "Function",
+	CmpItemKindInterfaceDefault = "Type",
+	CmpItemKindKeywordDefault = "Keyword",
+	CmpItemKindMethodDefault = "CmpItemKindFunctionDefault",
+	CmpItemKindModuleDefault = "Include",
+	CmpItemKindOperatorDefault = "Operator",
+	CmpItemKindPropertyDefault = "CmpItemKindFieldDefault",
+	CmpItemKindReferenceDefault = "StorageClass",
+	CmpItemKindSnippetDefault = "Special",
+	CmpItemKindStructDefault = "Structure",
+	CmpItemKindTextDefault = "String",
+	CmpItemKindTypeParameterDefault = "Typedef",
+	CmpItemKindUnitDefault = "CmpItemKindStructDefault",
+	CmpItemKindValueDefault = "CmpItemKindConstantDefault",
+	CmpItemKindVariableDefault = "Identifier",
 
 	--[[ 4.4.17. packer.nvim ]]
-	packerFail = 'ErrorMsg',
-	packerHash = 'Number',
-	packerPackageNotLoaded = 'Ignore',
-	packerStatusFail = 'Statement',
-	packerStatusSuccess = 'packerStatusFail',
+	packerFail = "ErrorMsg",
+	packerHash = "Number",
+	packerPackageNotLoaded = "Ignore",
+	packerStatusFail = "Statement",
+	packerStatusSuccess = "packerStatusFail",
 	packerSuccess = function(self)
 		return { fg = green, style = self.packerFail.style }
 	end,
@@ -1065,8 +1065,8 @@ local highlight_groups = {
 		return { fg = self.DiffDelete.bg }
 	end,
 	NvimTreeGitDirty = { fg = orange },
-	NvimTreeGitIgnored = 'Ignore',
-	NvimTreeGitMerge = 'NvimTreeGitRenamed',
+	NvimTreeGitIgnored = "Ignore",
+	NvimTreeGitMerge = "NvimTreeGitRenamed",
 	NvimTreeGitNew = function(self)
 		return { fg = self.DiffAdd.bg }
 	end,
@@ -1079,7 +1079,7 @@ local highlight_groups = {
 	FocusedSymbol = {},
 
 	--[[ 4.4.20. mini.nvim ]]
-	MiniJump = 'MiniJump2dSpot',
+	MiniJump = "MiniJump2dSpot",
 
 	--[[ CUSTOM ]]
 	ExtraWhitespace = "Error",
