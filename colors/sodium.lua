@@ -1103,6 +1103,8 @@ local highlight_groups = {
 	VimwikiBoldItalic = { style = { "bold", "italic" } },
 	VimwikiBoldUnderline = { style = { "bold", "underline" } },
 	VimwikiCheckBoxDone = { fg = trivial, style = { "strikethrough" } },
+
+	TreesitterContextLineNumber = { fg = white },
 }
 
 --[[ Step 5: Terminal Colors
